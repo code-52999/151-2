@@ -53,6 +53,12 @@
         <PuzzleList
           v-if="puzzleView === 'list'"
           @select="handlePuzzleSelect"
+          @add="puzzleView = 'add'"
+        />
+        <PuzzleForm
+          v-else-if="puzzleView === 'add'"
+          @cancel="puzzleView = 'list'"
+          @saved="handlePuzzleSaved"
         />
         <PuzzlePractice
           v-else
@@ -74,6 +80,7 @@ import GameForm from './components/GameForm.vue'
 import GameDetail from './components/GameDetail.vue'
 import PuzzleList from './components/PuzzleList.vue'
 import PuzzlePractice from './components/PuzzlePractice.vue'
+import PuzzleForm from './components/PuzzleForm.vue'
 
 const gamesStore = useGamesStore()
 const puzzlesStore = usePuzzlesStore()
@@ -116,6 +123,10 @@ function handleGameDeleted() {
 function handlePuzzleSelect(puzzle) {
   selectedPuzzle.value = puzzle
   puzzleView.value = 'practice'
+}
+
+function handlePuzzleSaved() {
+  puzzleView.value = 'list'
 }
 
 function handlePuzzleDeleted() {

@@ -19,6 +19,11 @@
           </select>
         </div>
       </div>
+      <div class="filter-actions">
+        <button class="btn btn-primary" @click="$emit('add')">
+          + 添加残局
+        </button>
+      </div>
       <div class="stats">
         <span>共 {{ store.filteredPuzzles.length }} 题</span>
         <span class="mastered-count">已掌握 {{ masteredCount }}</span>
@@ -70,7 +75,7 @@ import { usePuzzlesStore } from '../stores/puzzlesStore'
 
 const store = usePuzzlesStore()
 
-defineEmits(['select'])
+defineEmits(['select', 'add'])
 
 const masteredCount = computed(() => {
   return store.filteredPuzzles.filter(p => p.master).length
@@ -94,6 +99,10 @@ function toggleMaster(id) {
   align-items: flex-end;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.filter-actions {
+  margin-left: auto;
 }
 
 .filter-row {
